@@ -1,2 +1,23 @@
-<my-frontend-concepts-nx-welcome></my-frontend-concepts-nx-welcome>
-<router-outlet></router-outlet>
+<div class="shell-nav">Shell Application</div>
+
+<div *ngIf="isLoggedIn$ | async; else signIn">
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a [routerLink]="'css-grid'">
+                        CSS Grid
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="'custom-forms'">
+                        Custom Forms
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</div>
+<ng-template #signIn>
+    <router-outlet></router-outlet>
+</ng-template>

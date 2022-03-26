@@ -2,8 +2,10 @@
   "version": 2,
   "projects": {
     "login": "apps/login",
+    "login-data-access": "libs/login/data-access",
     "login-e2e": "apps/login-e2e",
-    "shared-data-access-user": "libs/shared/data-access-user",
+    "login-feature": "libs/login/feature",
+    "shared-data-access-user": "libs/shared/data-access/user",
     "shell": "apps/shell",
     "shell-e2e": "apps/shell-e2e"
   }

@@ -1,14 +1,14 @@
 {
   "projectType": "library",
-  "root": "libs/shared/data-access-user",
-  "sourceRoot": "libs/shared/data-access-user/src",
+  "root": "libs/login/feature",
+  "sourceRoot": "libs/login/feature/src",
   "prefix": "my-frontend-concepts",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/libs/shared/data-access-user"],
+      "outputs": ["coverage/libs/login/feature"],
       "options": {
-        "jestConfig": "libs/shared/data-access-user/jest.config.js",
+        "jestConfig": "libs/login/feature/jest.config.js",
         "passWithNoTests": true
       }
     },
@@ -16,8 +16,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/shared/data-access-user/src/**/*.ts",
-          "libs/shared/data-access-user/src/**/*.html"
+          "libs/login/feature/src/**/*.ts",
+          "libs/login/feature/src/**/*.html"
         ]
       }
     }

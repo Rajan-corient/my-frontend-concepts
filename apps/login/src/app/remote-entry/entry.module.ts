@@ -11,7 +11,7 @@ import { RemoteEntryComponent } from './entry.component';
     RouterModule.forChild([
       {
         path: '',
-        component: RemoteEntryComponent,
+        loadChildren: () => import('@my-frontend-concepts/login/feature').then((m) => m.LoginFeatureModule)
       },
     ]),
   ],

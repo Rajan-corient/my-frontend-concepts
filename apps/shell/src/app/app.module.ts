@@ -16,6 +16,16 @@ import { RouterModule } from '@angular/router';
           loadChildren: () =>
             import('login/Module').then((m) => m.RemoteEntryModule),
         },
+        // {
+        //   path: 'css-grid',
+        //   loadChildren: () =>
+        //     import('css-grid/Module').then((m) => m.RemoteEntryModule),
+        // },
+        // {
+        //   path: 'custom-forms',
+        //   loadChildren: () =>
+        //     import('custom-forms/Module').then((m) => m.RemoteEntryModule),
+        // },
       ],
       { initialNavigation: 'enabledBlocking' }
     ),

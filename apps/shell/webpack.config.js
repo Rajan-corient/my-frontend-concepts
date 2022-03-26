@@ -22,6 +22,7 @@ sharedMappings.register(
   tsConfigPath,
   [
     /* mapped paths to share */
+    '@my-frontend-concepts/shared/data-access/user'
   ],
   workspaceRootPath
 );

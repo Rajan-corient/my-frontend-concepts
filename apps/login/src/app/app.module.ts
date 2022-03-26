@@ -15,7 +15,13 @@ import { RouterModule } from '@angular/router';
   declarations: [AppComponent, NxWelcomeComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabledBlocking' }),
+    RouterModule.forRoot([
+      {
+        path: '',
+        loadChildren: () =>
+          import('./remote-entry/entry.module').then((m) => m.RemoteEntryModule),
+      },
+    ], { initialNavigation: 'enabledBlocking' }),
   ],
   providers: [],
   bootstrap: [AppComponent],
