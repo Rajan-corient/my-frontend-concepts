@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@my-frontend-concepts/custom-forms/feature": [
+        "libs/custom-forms/feature/src/index.ts"
+      ],
       "@my-frontend-concepts/login/data-access": [
         "libs/login/data-access/src/index.ts"
       ],

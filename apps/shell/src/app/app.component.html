@@ -1,5 +1,5 @@
 <div class="shell-nav">Shell Application</div>
-
+<!-- 
 <div *ngIf="isLoggedIn$ | async; else signIn">
     <header>
         <nav>
@@ -17,7 +17,29 @@
             </ul>
         </nav>
     </header>
+    <router-outlet></router-outlet>
 </div>
 <ng-template #signIn>
     <router-outlet></router-outlet>
-</ng-template>
+</ng-template> -->
+
+
+<div>
+    <header>
+        <nav>
+            <ul>
+                <li>
+                    <a [routerLink]="'custom-forms'">
+                        Custom Forms
+                    </a>
+                </li>
+                <li>
+                    <a [routerLink]="'css-grid'">
+                        CSS Grid
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</div>
+<router-outlet></router-outlet>

@@ -1,0 +1,24 @@
+<div [formGroup]="formGroup">
+    <p-panel header="Nomination Header">
+        <my-frontend-concepts-nomination-header
+        formControlName="nominationHeader"
+        [isReadOnly]="isReadOnly"
+        [vessel]="vesselSelected"
+        (valueChanged)="nominationHeaderChanged($event)">
+        </my-frontend-concepts-nomination-header>
+    </p-panel>
+    <p-panel *ngIf="showMarineDetails">
+        <my-frontend-concepts-marine-details 
+        formControlName="marineDetails"
+        (valueChanged)="vesselChanged($event)">
+        </my-frontend-concepts-marine-details>
+    </p-panel>
+
+    <p-panel >
+        <my-frontend-concepts-secured-section> 
+        formControlName="securedSection"
+        [securityContext]="securityContext">
+        </my-frontend-concepts-secured-section>
+    </p-panel>
+
+</div>

@@ -1,0 +1,18 @@
+<div [formGroup]="formGroup" class="layout">
+    <p-panel [header]="'Deliveries'">
+      <order-items
+        formControlName="deliveries"
+        (totalChanged)="handlerDeliveriesTotalChanged($event)"
+      ></order-items>
+    </p-panel>
+    <p-panel [header]="'Receipts'">
+      <order-items
+        formControlName="receipts"
+        (totalChanged)="handleReceiptsTotalChanged($event)"
+      ></order-items>
+    </p-panel>
+  </div>
+  
+  <!-- {{ 'delivery:' + delveriesTotal }}
+  {{ 'receipts:' + receiptsTotal }} -->
+  
