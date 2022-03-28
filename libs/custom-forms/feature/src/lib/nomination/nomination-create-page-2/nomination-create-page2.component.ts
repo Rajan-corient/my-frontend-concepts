@@ -8,16 +8,16 @@ import { ControlValueAccessorBase } from '../../types/control-value-accessor-bas
   styleUrls: ['./nomination-create-page2.component.scss'],
   providers:[
     {
-      provide:NG_VALUE_ACCESSOR,
-      multi:true,
-      useExisting:NominationCreatePage2Component
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: NominationCreatePage2Component
     }
   ]
 })
 export class NominationCreatePage2Component extends ControlValueAccessorBase implements OnInit {
 
-  balanceInfo:any = {
-    balanced:true
+  balanceInfo:{balanced: boolean} = {
+    balanced: true
   }
 
   constructor() {
@@ -36,9 +36,8 @@ export class NominationCreatePage2Component extends ControlValueAccessorBase imp
     })
   }
 
-  handleBalanceChanged(data:any)
-  {
+  handleBalanceChanged(data:any) {
     console.log("Balance",data);
-    this.balanceInfo=data
+    this.balanceInfo=  data
   }
 }

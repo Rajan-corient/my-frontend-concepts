@@ -1,15 +1,15 @@
 <div [formGroup]="formGroup" class="layout">
     <p-panel [header]="'Deliveries'">
-      <order-items
+      <my-frontend-concepts-order-items
         formControlName="deliveries"
         (totalChanged)="handlerDeliveriesTotalChanged($event)"
-      ></order-items>
+      ></my-frontend-concepts-order-items>
     </p-panel>
     <p-panel [header]="'Receipts'">
-      <order-items
+      <my-frontend-concepts-order-items
         formControlName="receipts"
         (totalChanged)="handleReceiptsTotalChanged($event)"
-      ></order-items>
+      ></my-frontend-concepts-order-items>
     </p-panel>
   </div>
   

@@ -1,7 +1,7 @@
 .layout {
     display: grid;
     grid-template-columns: repeat(3,1fr);
-    grid-gap: 5px;
+    grid-gap: 15px;
     .item-0 {
       grid-column: 1 / 4;
     }

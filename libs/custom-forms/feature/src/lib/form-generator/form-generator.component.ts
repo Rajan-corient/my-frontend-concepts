@@ -28,7 +28,7 @@ export class FormGeneratorComponent implements OnInit, OnDestroy,ControlValueAcc
 
   formGroup!:FormGroup;
   controls:SmartFormControl[]=[];
-  layout='layout';
+  layout = 'layout';
 
 
   writeValue(obj: any): void {

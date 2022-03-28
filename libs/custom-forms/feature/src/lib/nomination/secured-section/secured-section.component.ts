@@ -18,6 +18,7 @@ import { ControlType, SmartFormControl } from '../../types/basic-form-types';
     }
   ]
 })
+
 export class SecuredSectionComponent extends FormGeneratorComponent implements OnInit,OnChanges {
 
   constructor(private sec: SecurityService) { 
@@ -27,17 +28,17 @@ export class SecuredSectionComponent extends FormGeneratorComponent implements O
  override ngOnInit(): void {
     this.createForm();
     super.ngOnInit();
+
+    // temp added as ngOnchages is not triggering
+    this.layout = 'admin-layout';
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    
     console.log(changes);
-    this.layout =changes?.['securityContext'].currentValue.role === 'admin'
+    this.layout = changes?.['securityContext'].currentValue.role === 'admin'
       ? 'admin-layout'
       : 'user-layout';
       console.log("Secured Section LAyout",this.layout);
-      
-
   }
 
   createForm() {
