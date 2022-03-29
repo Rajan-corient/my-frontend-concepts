@@ -55,8 +55,8 @@ describe('MasterDataService', () => {
         expect(vesselLength).toBe('100 ft')
     });
 
-    it('vessels getter should return vessels', () => {
-        const vessels = service.vessels;
+    it('getVessels should return vessels', () => {
+        const vessels = service.getVessels();
         expect(vessels.length).toBe(2);
         expect(vessels).toEqual(mockedMasterData.vessels);
     });

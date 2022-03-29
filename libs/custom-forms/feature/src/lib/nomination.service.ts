@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-
 import { ContractService } from './contract.service';
 import { MasterDataService } from './master-data.service';
 
 @Injectable({
   providedIn: 'root',
 })
+
 export class NominationService {
 
   private customerSubject  = new BehaviorSubject<string[]>([]);
@@ -29,12 +29,14 @@ export class NominationService {
     //so that we reset them accordingly
     this.filterContracts("", new Date(), new Date());
   }
+
   filterContracts(customer:string, startDate:Date, endDate:Date) {
     this.contractSubject.next(
       this.contractService.getContracts(customer, startDate, endDate)
     );
     this.filterTypes("");
   }
+
   filterTypes(contract: string) {
     this.typeSubject.next(this.masterDataService.getTypes(contract));
   }
@@ -44,10 +46,11 @@ export class NominationService {
   }
 
   get vessels$(): Observable<string[]> {
-    return of([...this.masterDataService.vessels.map(v => v.vessel)]);
+    return of([...this.masterDataService.getVessels().map(v => v.vessel)]);
   }
 
   getVesselLength(vessel:string): string {
     return this.masterDataService.getVesselLength(vessel)
   }
+
 }
