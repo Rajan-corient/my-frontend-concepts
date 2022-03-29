@@ -9,11 +9,13 @@ export type UserRole = 'admin' | 'user';
 
 @Injectable({ providedIn: 'root' })
 export class SecurityService {
+  
   constructor() {}
 
   currentSecurityContext: ISecurityContext = {
     role: 'admin',
   };
+
   securityContextSubject: BehaviorSubject<ISecurityContext> = new BehaviorSubject(this.currentSecurityContext);
   securityContext$ = this.securityContextSubject.asObservable();
   
@@ -21,7 +23,7 @@ export class SecurityService {
     return this.currentSecurityContext;
   }
 
-  set securityContext(security: ISecurityContext) {
+  setSecurityContext(security: ISecurityContext) {
     this.currentSecurityContext = security;
     this.securityContextSubject.next(security);
   }
