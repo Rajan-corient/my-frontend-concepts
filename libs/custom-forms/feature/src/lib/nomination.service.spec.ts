@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { firstValueFrom } from 'rxjs';
 import { ContractService } from './contract.service';
 import { MasterDataService } from './master-data.service';
 import { NominationService } from './nomination.service';
@@ -125,7 +126,7 @@ describe('NominationService', () => {
         service.types$.subscribe((data: string[]) => {
             console.log('Types', data)
             try {
-                expect(data.length).toBe(1)
+                expect(data.length).resolves.toBe(1)
                 expect(data).toEqual(['Marine']);
                 expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
                 done();
@@ -135,30 +136,139 @@ describe('NominationService', () => {
         });    
     });
 
-    // it('filterContracts should return contract based on contract selection- Valid Case', (done) => {
-    //     jest.spyOn(masterDataService, 'getContracts').mockImplementation((contract:string) => {
-    //         if (contract === 'Contract-1') {
-    //             return ['Marine'];
-    //         } else if (contract === 'Contract-2') {
-    //             return ['Transport'];
+    // Imcomplete solution
+    // it('filterContracts should return contract based on customer selection- Valid Case --Using Done', (done) => {
+    //     jest.spyOn(contractService, 'getContracts').mockImplementation((customer:string, startDate:Date, endDate:Date) => {
+    //         if (customer === 'Customer-1') {
+    //             return ['Contract-1'];
+    //         } else if (customer === 'Customer-2') {
+    //             return ['Contract-2'];
     //         } else {
     //             return [];
     //         }
     //     });
 
-    //     service.filterTypes('Contract-1');
-    //     service.types$.subscribe((data: string[]) => {
-    //         console.log('Types', data)
+    //     jest.spyOn(masterDataService, 'getTypes').mockReturnValue([]);
+
+    //     service.filterContracts('Customer-1', new Date(), new Date());
+    //     service.contracts$.subscribe((contracts: string[]) => {
+    //         console.log('Contracts', contracts)
     //         try {
-    //             expect(data.length).toBe(1)
-    //             expect(data).toEqual(['Marine']);
-    //             expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
+    //             expect(contracts.length).toBe(1)
+    //             expect(contracts).toEqual(['Contract-1']);
+    //             expect(contractService.getContracts).toHaveBeenCalledTimes(1);
+    //             // done()
+    //         } catch (error) {
+    //             console.log(error);
+    //             // done(error)
+    //         }
+    //     });  
+        
+    //     service.types$.subscribe((types: string[]) => {
+    //         console.log("Types", types)
+    //         try {
+    //             expect(types.length).toBe(0);
     //             done();
     //         } catch (error) {
     //             done(error);
     //         }
-    //     });    
+    //     })
     // });
+
+     it('filterContracts based on customer selection- Valid Case --Using Promise', async () => {
+        jest.spyOn(contractService, 'getContracts').mockImplementation((customer:string, startDate:Date, endDate:Date) => {
+            if (customer === 'Customer-1') {
+                return ['Contract-1'];
+            } else if (customer === 'Customer-2') {
+                return ['Contract-2'];
+            } else {
+                return [];
+            }
+        });
+
+        jest.spyOn(masterDataService, 'getTypes').mockReturnValue([]);
+
+        service.filterContracts('Customer-1', new Date(), new Date());
+
+        await expect(firstValueFrom(service.contracts$)).resolves.toEqual(['Contract-1']);
+        expect(contractService.getContracts).toHaveBeenCalledTimes(1);
+        await expect(firstValueFrom(service.types$)).resolves.toEqual([]);
+        expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
+    });
+
+    it('filterContracts based on customer selection- InValid Case --Using Promise', async () => {
+        jest.spyOn(contractService, 'getContracts').mockImplementation((customer:string, startDate:Date, endDate:Date) => {
+            if (customer === 'Customer-1') {
+                return ['Contract-1'];
+            } else if (customer === 'Customer-2') {
+                return ['Contract-2'];
+            } else {
+                return [];
+            }
+        });
+
+        jest.spyOn(masterDataService, 'getTypes').mockReturnValue([]);
+
+        service.filterContracts('Customer-5', new Date(), new Date());
+
+        await expect(firstValueFrom(service.contracts$)).resolves.toEqual([]);
+        expect(contractService.getContracts).toHaveBeenCalledTimes(1);
+        await expect(firstValueFrom(service.types$)).resolves.toEqual([]);
+        expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
+    });
+
+    it('filterCustomers based on assetGroup selection- Valid Case --Using Promise', async () => {
+        jest.spyOn(masterDataService, 'getCustomer').mockImplementation((assetGroup:string) => {
+            if (assetGroup === 'AssetGroup-1') {
+                return ['Customer-1'];
+            } else if (assetGroup === 'AssetGroup-2') {
+                return ['Customer-2'];
+            } else if (assetGroup === 'AssetGroup-3') {
+                return ['Customer-3'];
+            } else {
+                return [];
+            }
+        });
+
+        jest.spyOn(contractService, 'getContracts').mockReturnValue([])
+        jest.spyOn(masterDataService, 'getTypes').mockReturnValue([]);
+
+        service.filterCustomers('AssetGroup-1');
+
+        await expect(firstValueFrom(service.customers$)).resolves.toEqual(['Customer-1']);
+        expect (masterDataService.getCustomer).toHaveBeenCalledTimes(1);
+        await expect(firstValueFrom(service.contracts$)).resolves.toEqual([]);
+        expect(contractService.getContracts).toHaveBeenCalledTimes(1);
+        await expect(firstValueFrom(service.types$)).resolves.toEqual([]);
+        expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
+    });
+
+
+    it('filterCustomers based on assetGroup selection- InValid Case --Using Promise', async () => {
+        jest.spyOn(masterDataService, 'getCustomer').mockImplementation((assetGroup:string) => {
+            if (assetGroup === 'AssetGroup-1') {
+                return ['Customer-1'];
+            } else if (assetGroup === 'AssetGroup-2') {
+                return ['Customer-2'];
+            } else if (assetGroup === 'AssetGroup-3') {
+                return ['Customer-3'];
+            } else {
+                return [];
+            }
+        });
+
+        jest.spyOn(contractService, 'getContracts').mockReturnValue([])
+        jest.spyOn(masterDataService, 'getTypes').mockReturnValue([]);
+
+        service.filterCustomers('AssetGroup-50');
+
+        await expect(firstValueFrom(service.customers$)).resolves.toEqual([]);
+        expect (masterDataService.getCustomer).toHaveBeenCalledTimes(1);
+        await expect(firstValueFrom(service.contracts$)).resolves.toEqual([]);
+        expect(contractService.getContracts).toHaveBeenCalledTimes(1);
+        await expect(firstValueFrom(service.types$)).resolves.toEqual([]);
+        expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
+    });
 
 
 });

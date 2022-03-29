@@ -13,7 +13,7 @@ export class NominationService {
   customers$ = this.customerSubject.asObservable();
 
   private contractSubject= new BehaviorSubject<string[]> ([]);
-  contracts = this.contractSubject.asObservable();
+  contracts$ = this.contractSubject.asObservable();
 
   private typeSubject  = new BehaviorSubject<string[]>([]);
   types$ = this.typeSubject.asObservable();
