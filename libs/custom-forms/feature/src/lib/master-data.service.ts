@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MasterDataService {
+
   masterData = {
     assetGroup: ['AssetGroup-1', 'AssetGroup-2', 'AssetGroup-3'],
     customer: [
@@ -21,10 +22,13 @@ export class MasterDataService {
       { vessel: 'Vessel-2', length: '200 ft' },
     ],
   };
+
   constructor() {}
+
   getAssetGroup(): string[] {
     return [...this.masterData.assetGroup];
   }
+
   getTypes(contract: string): string[] {
     return [
       ...this.masterData.types
@@ -32,6 +36,7 @@ export class MasterDataService {
         .map((t) => t.type),
     ];
   }
+
   getCustomer(assetGroup: string): string[] {
     return [
       ...this.masterData.customer
@@ -39,6 +44,7 @@ export class MasterDataService {
         .map((c) => c.customer),
     ];
   }
+
   getVesselLength(vessel: string): string {
     console.log('vessel', vessel);
     return this.masterData.vessels.filter((v) => v.vessel === vessel)[0].length;
@@ -47,4 +53,5 @@ export class MasterDataService {
   get vessels(): any[] {
     return [...this.masterData.vessels];
   }
+  
 }
