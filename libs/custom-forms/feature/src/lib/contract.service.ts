@@ -26,11 +26,10 @@ export class ContractService {
 
   getContracts(customer: string, startDate: Date, endDate: Date): string[] {
     // console.log('customer', customer, this.contracts);
-    let a = this.contracts
-      .filter((c) => c.customer === customer)
+    const contracts = this.contracts.
+      filter((c) => c.customer === customer)
       .map((c) => c.contract);
-
-    // console.log('asdasd', a);
-    return a;
+    // console.log('asdasd', contracts);
+    return contracts;
   }
 }
