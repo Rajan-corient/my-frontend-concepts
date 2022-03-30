@@ -66,7 +66,7 @@ export class NominationHeaderComponent extends FormGeneratorComponent implements
       contract: new SmartFormControl({
         type: ControlType.DropDown,
         caption: 'Contract:',
-        options: this.nominationService.contracts,
+        options: this.nominationService.contracts$,
         onChange: this.nominationService.filterTypes.bind(
           this.nominationService
         ),
