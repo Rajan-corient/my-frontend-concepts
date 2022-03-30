@@ -235,12 +235,18 @@ describe('NominationService', () => {
 
         service.filterCustomers('AssetGroup-1');
 
-        await expect(firstValueFrom(service.customers$)).resolves.toEqual(['Customer-1']);
-        expect (masterDataService.getCustomer).toHaveBeenCalledTimes(1);
-        await expect(firstValueFrom(service.contracts$)).resolves.toEqual([]);
-        expect(contractService.getContracts).toHaveBeenCalledTimes(1);
-        await expect(firstValueFrom(service.types$)).resolves.toEqual([]);
-        expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
+        const customers = await firstValueFrom(service.customers$);
+        expect(customers).toEqual(['Customer-1'])
+        expect (masterDataService.getCustomer).toHaveBeenCalledTimes(1); 
+
+        const contracts = await firstValueFrom(service.contracts$);
+        expect(contracts).toEqual([]);
+        expect (contractService.getContracts).toHaveBeenCalledTimes(1);
+
+        const types = await firstValueFrom(service.types$);
+        expect(types).toEqual([]);
+        expect (masterDataService.getTypes).toHaveBeenCalledTimes(1);
+
     });
 
 
@@ -262,12 +268,17 @@ describe('NominationService', () => {
 
         service.filterCustomers('AssetGroup-50');
 
-        await expect(firstValueFrom(service.customers$)).resolves.toEqual([]);
-        expect (masterDataService.getCustomer).toHaveBeenCalledTimes(1);
-        await expect(firstValueFrom(service.contracts$)).resolves.toEqual([]);
-        expect(contractService.getContracts).toHaveBeenCalledTimes(1);
-        await expect(firstValueFrom(service.types$)).resolves.toEqual([]);
-        expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
+        const customers = await firstValueFrom(service.customers$);
+        expect(customers).toEqual([])
+        expect (masterDataService.getCustomer).toHaveBeenCalledTimes(1); 
+
+        const contracts = await firstValueFrom(service.contracts$);
+        expect(contracts).toEqual([]);
+        expect (contractService.getContracts).toHaveBeenCalledTimes(1);
+
+        const types = await firstValueFrom(service.types$);
+        expect(types).toEqual([]);
+        expect (masterDataService.getTypes).toHaveBeenCalledTimes(1);
     });
 
 
