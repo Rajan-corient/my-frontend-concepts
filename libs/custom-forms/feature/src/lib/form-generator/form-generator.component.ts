@@ -7,11 +7,10 @@ import { SmartFormControl } from '../types/basic-form-types';
   selector: 'my-frontend-concepts-form-generator',
   templateUrl: './form-generator.component.html',
   styleUrls: ['./form-generator.component.scss'],
-  changeDetection:ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FormGeneratorComponent implements OnInit, OnDestroy,ControlValueAccessor,Validators {
 
-  constructor() { }
+export class FormGeneratorComponent implements OnInit, OnDestroy, ControlValueAccessor, Validators {
 
   @Input() securityContext:{role :'admin'|'user' }={role:'admin'};
   @Input() isReadOnly=false;
@@ -29,6 +28,20 @@ export class FormGeneratorComponent implements OnInit, OnDestroy,ControlValueAcc
   formGroup!:FormGroup;
   controls:SmartFormControl[]=[];
   layout = 'layout';
+
+  constructor() { }
+
+  ngOnInit(): void {
+    Object.keys(this.formGroup.controls).forEach((key)=>{
+      this.formGroup?.controls?.[key]?.valueChanges
+      .pipe(
+        takeUntil(this.takeUntil$)
+      )
+      .subscribe((value)=>{
+        this.valueChanged.emit({control:key,value});
+      })
+    })
+  }
 
 
   writeValue(obj: any): void {
@@ -57,6 +70,7 @@ export class FormGeneratorComponent implements OnInit, OnDestroy,ControlValueAcc
       this.formGroup.enable();
     }
   }
+
   //Check this Validator Implementation
   validate(control:AbstractControl):ValidationErrors|null{
     if(this.formGroup.errors) {
@@ -89,32 +103,11 @@ export class FormGeneratorComponent implements OnInit, OnDestroy,ControlValueAcc
         returned = value;
       }
     }
-
     return returned;
   }
 
   getControlValue(controlKey:string) {
     return this.formGroup?.['controls']?.[controlKey].value;
-  }
-
-
-  ngOnInit(): void {
-
-    Object
-    .keys(this.formGroup.controls)
-    .forEach((key)=>{
-
-      this.formGroup?.controls?.[key]?.valueChanges
-      .pipe(
-        takeUntil(this.takeUntil$)
-      )
-      .subscribe((value)=>{
-        this.valueChanged.emit({control:key,value});
-      })
-
-    })
-
-
   }
 
 }
