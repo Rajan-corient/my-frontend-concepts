@@ -30,6 +30,22 @@ fdescribe('NominationHeaderComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('createForm method should create formGroup', () => {
+    const groupValue = {
+      assetGroup: null,
+      customer: null,
+      startDate: null,
+      endDate: null,
+      contract: null,
+      type: null,
+      vessel: null,
+    }
+    //component.createForm();
+    // createForm method gets triggered automatically as we are
+    // calling detectChanges in beforeEach block
+    expect(component.formGroup.value).toEqual(groupValue);
+  });
+
   it('Test a form group element count for create mode', () => {
     component.isReadOnly = false;
     fixture.detectChanges();
@@ -46,4 +62,7 @@ fdescribe('NominationHeaderComponent', () => {
     const controlElements = formElement.querySelectorAll("div label.readonly-label");
     expect(controlElements.length).toBe(7)
   });
+
+
+
 });
