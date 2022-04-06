@@ -138,44 +138,39 @@ describe('NominationService', () => {
         service.filterTypes('Contract-1');
     });
 
-    // Imcomplete solution
-    // it('filterContracts should return contract based on customer selection- Valid Case --Using Done', (done) => {
-    //     jest.spyOn(contractService, 'getContracts').mockImplementation((customer:string, startDate:Date, endDate:Date) => {
-    //         if (customer === 'Customer-1') {
-    //             return ['Contract-1'];
-    //         } else if (customer === 'Customer-2') {
-    //             return ['Contract-2'];
-    //         } else {
-    //             return [];
-    //         }
-    //     });
+    it('filterContracts should return contract based on customer selection- Valid Case --Using Done', (done) => {
+        jest.spyOn(contractService, 'getContracts').mockImplementation((customer:string, startDate:Date, endDate:Date) => {
+            if (customer === 'Customer-1') {
+                return ['Contract-1'];
+            } else if (customer === 'Customer-2') {
+                return ['Contract-2'];
+            } else {
+                return [];
+            }
+        });
 
-    //     jest.spyOn(masterDataService, 'getTypes').mockReturnValue([]);
+        jest.spyOn(masterDataService, 'getTypes').mockReturnValue([]);
 
-    //     service.filterContracts('Customer-1', new Date(), new Date());
-    //     service.contracts$.subscribe((contracts: string[]) => {
-    //         console.log('Contracts', contracts)
-    //         try {
-    //             expect(contracts.length).toBe(1)
-    //             expect(contracts).toEqual(['Contract-1']);
-    //             expect(contractService.getContracts).toHaveBeenCalledTimes(1);
-    //             // done()
-    //         } catch (error) {
-    //             console.log(error);
-    //             // done(error)
-    //         }
-    //     });  
+        service.contracts$.pipe(skip(1)).subscribe((contracts: string[]) => {
+            console.log('Contracts', contracts)
+            expect(contracts.length).toBe(1)
+            expect(contracts).toEqual(['Contract-1']);
+            expect(contractService.getContracts).toHaveBeenCalledTimes(1);
+        });  
         
-    //     service.types$.subscribe((types: string[]) => {
-    //         console.log("Types", types)
-    //         try {
-    //             expect(types.length).toBe(0);
-    //             done();
-    //         } catch (error) {
-    //             done(error);
-    //         }
-    //     })
-    // });
+        //This will be called later therefore we can done here
+        service.types$.pipe(skip(1)).subscribe((types: string[]) => {
+            console.log("Types", types)
+            try {
+                expect(types.length).toBe(0);
+                expect.assertions(4)
+                done();
+            } catch (error) {
+                done(error);
+            }
+        })
+        service.filterContracts('Customer-1', new Date(), new Date());
+    });
 
      it('filterContracts based on customer selection- Valid Case --Using Promise', async () => {
         jest.spyOn(contractService, 'getContracts').mockImplementation((customer:string, startDate:Date, endDate:Date) => {
