@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, skip } from 'rxjs';
 import { ContractService } from './contract.service';
 import { MasterDataService } from './master-data.service';
 import { NominationService } from './nomination.service';
@@ -122,11 +122,12 @@ describe('NominationService', () => {
             }
         });
 
-        service.filterTypes('Contract-1');
-        service.types$.subscribe((data: string[]) => {
+        // this will skip the initial value from behaviour subject and
+        // this will be called later therefore we can done here
+        service.types$.pipe(skip(1)).subscribe((data: string[]) => {
             console.log('Types', data)
             try {
-                expect(data.length).resolves.toBe(1)
+                expect(data.length).toBe(1)
                 expect(data).toEqual(['Marine']);
                 expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
                 done();
@@ -134,6 +135,7 @@ describe('NominationService', () => {
                 done(error);
             }
         });    
+        service.filterTypes('Contract-1');
     });
 
     // Imcomplete solution
