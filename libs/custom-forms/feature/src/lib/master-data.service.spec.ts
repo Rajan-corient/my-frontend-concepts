@@ -38,20 +38,32 @@ describe('MasterDataService', () => {
         expect(assetGroup).toEqual(mockedMasterData.assetGroup);
     });
 
-    it('getTypes method should return types based on contract selection', () => {
+    it('getTypes method should return types based on contract selection --valid case', () => {
         const types = service.getTypes('Contract-1');
         expect(types.length).toBe(1);
-        expect(types[0]).toEqual(mockedMasterData.types[0].type);
+        expect(types).toEqual(['Marine']);
     });
 
-    it('getCustomer method should return customer based on assetGroup selection', () => {
+    it('getTypes method should return types based on contract selection --invalid case', () => {
+        const types = service.getTypes('Contract-55');
+        expect(types.length).toBe(0);
+        expect(types).toEqual([]);
+    });
+
+    it('getCustomer method should return customer based on assetGroup selection --valid case', () => {
         const customer = service.getCustomer('AssetGroup-1');
         expect(customer.length).toBe(1);
         expect(customer[0]).toBe('Customer-1');
     });
 
+    it('getCustomer method should return customer based on assetGroup selection --Invalid case', () => {
+        const customer = service.getCustomer('AssetGroup-22');
+        expect(customer.length).toBe(0);
+        expect(customer).toEqual([]);
+    });
+
     it('getVesselLength method should return correct length', () => {
-        const vesselLength = service.getVesselLength(mockedMasterData.vessels[0].vessel);
+        const vesselLength = service.getVesselLength('Vessel-1');
         expect(vesselLength).toBe('100 ft')
     });
 
