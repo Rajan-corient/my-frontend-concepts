@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { firstValueFrom, skip } from 'rxjs';
+import { firstValueFrom, of, skip } from 'rxjs';
 import { ContractService } from './contract.service';
 import { MasterDataService } from './master-data.service';
 import { NominationService } from './nomination.service';
@@ -122,8 +122,11 @@ describe('NominationService', () => {
             }
         });
 
-        // this will skip the initial value from behaviour subject and
-        // this will be called later therefore we can done here
+        // service.filterTypes('Contract-1');
+
+        // Here skip(1) will skip the initial value from behaviour subject
+        // hence we it will skip the first observable call and will subscribe in the
+        // next call when we will call filterTypes method manually
         service.types$.pipe(skip(1)).subscribe((data: string[]) => {
             console.log('Types', data)
             try {
@@ -134,7 +137,9 @@ describe('NominationService', () => {
             } catch (error) {
                 done(error);
             }
-        });    
+        });
+
+        // calling filterTypes here to make it's subscription call uniform with subject and behaviour subject
         service.filterTypes('Contract-1');
     });
 
@@ -153,9 +158,14 @@ describe('NominationService', () => {
 
         service.contracts$.pipe(skip(1)).subscribe((contracts: string[]) => {
             console.log('Contracts', contracts)
-            expect(contracts.length).toBe(1)
-            expect(contracts).toEqual(['Contract-1']);
-            expect(contractService.getContracts).toHaveBeenCalledTimes(1);
+            try {
+                expect(contracts.length).toBe(1)
+                expect(contracts).toEqual(['Contract-1']);
+                expect(contractService.getContracts).toHaveBeenCalledTimes(1);
+            } catch (error) {
+                done(error);
+            }
+
         });  
         
         //This will be called later therefore we can done here
@@ -214,7 +224,38 @@ describe('NominationService', () => {
         expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
     });
 
+    // it('filterCustomers based on assetGroup selection- Valid Case --Using Done', (done) => {
+    //     jest.spyOn(masterDataService, 'getCustomer').mockImplementation((assetGroup:string) => {
+    //         if (assetGroup === 'AssetGroup-1') {
+    //             return ['Customer-1'];
+    //         } else if (assetGroup === 'AssetGroup-2') {
+    //             return ['Customer-2'];
+    //         } else if (assetGroup === 'AssetGroup-3') {
+    //             return ['Customer-3'];
+    //         } else {
+    //             return [];
+    //         }
+    //     });
+
+    //     jest.spyOn(contractService, 'getContracts').mockReturnValue([])
+    //     jest.spyOn(masterDataService, 'getTypes').mockReturnValue([]);
+
+    //     service.filterCustomers('AssetGroup-1');
+
+    //     service.customers$.subscribe((customers:string[])=>{
+    //       console.log("Customers", customers)
+    //       try {
+    //         // expect(customers.length).toBe(1);
+    //         // expect(customers).toEqual(['Customer-1'])
+    //       } catch (error) {
+    //         done(error);   
+    //       }
+    //     });
+
+    // });
+
     it('filterCustomers based on assetGroup selection- Valid Case --Using Promise', async () => {
+        
         jest.spyOn(masterDataService, 'getCustomer').mockImplementation((assetGroup:string) => {
             if (assetGroup === 'AssetGroup-1') {
                 return ['Customer-1'];
