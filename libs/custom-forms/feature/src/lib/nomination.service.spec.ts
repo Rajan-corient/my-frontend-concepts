@@ -224,35 +224,64 @@ describe('NominationService', () => {
         expect(masterDataService.getTypes).toHaveBeenCalledTimes(1);
     });
 
-    // it('filterCustomers based on assetGroup selection- Valid Case --Using Done', (done) => {
-    //     jest.spyOn(masterDataService, 'getCustomer').mockImplementation((assetGroup:string) => {
-    //         if (assetGroup === 'AssetGroup-1') {
-    //             return ['Customer-1'];
-    //         } else if (assetGroup === 'AssetGroup-2') {
-    //             return ['Customer-2'];
-    //         } else if (assetGroup === 'AssetGroup-3') {
-    //             return ['Customer-3'];
-    //         } else {
-    //             return [];
-    //         }
-    //     });
+    it('filterCustomers based on assetGroup selection- Valid Case --Using Done', (done) => {
+        jest.spyOn(masterDataService, 'getCustomer').mockImplementation((assetGroup:string) => {
+            if (assetGroup === 'AssetGroup-1') {
+                return ['Customer-1'];
+            } else if (assetGroup === 'AssetGroup-2') {
+                return ['Customer-2'];
+            } else if (assetGroup === 'AssetGroup-3') {
+                return ['Customer-3'];
+            } else {
+                return [];
+            }
+        });
 
-    //     jest.spyOn(contractService, 'getContracts').mockReturnValue([])
-    //     jest.spyOn(masterDataService, 'getTypes').mockReturnValue([]);
+        jest.spyOn(contractService, 'getContracts').mockReturnValue([])
+        jest.spyOn(masterDataService, 'getTypes').mockReturnValue([]);
 
-    //     service.filterCustomers('AssetGroup-1');
+        service.filterCustomers('AssetGroup-1');
 
-    //     service.customers$.subscribe((customers:string[])=>{
-    //       console.log("Customers", customers)
-    //       try {
-    //         // expect(customers.length).toBe(1);
-    //         // expect(customers).toEqual(['Customer-1'])
-    //       } catch (error) {
-    //         done(error);   
-    //       }
-    //     });
+        // We can add pipe(skip(1)) to bypass intial value of behavior subject.
+        service.customers$.subscribe((customers: string[]) => {
+          console.log("Customers", customers);
+          try {
+            expect(customers.length).toBe(1);
+            expect(customers).toEqual(['Customer-1']);
+          } catch (error) {
+            done(error);   
+          }
+        });
 
-    // });
+        service.contracts$.subscribe((contracts: string[]) => {
+            console.log('contracts', contracts);
+            try {
+                expect(contracts.length).toBe(0);
+                expect(contracts).toEqual([]);
+            } catch (error) {
+                done(error);
+            }
+        })
+
+        // this will be our last subscription so we can add done() here
+        service.types$.subscribe((types: string[]) => {
+            console.log('types', types);
+            try {
+                expect(types.length).toBe(0);
+                expect(types).toEqual([]);
+
+                // this makes the end of test.
+                // As we verify 6 assertions are run
+                // We know types$ will emit data in last
+                // and we can call done here only
+                expect.assertions(6);
+                done();
+            } catch (error) {
+               done(error); 
+            }
+        })
+
+    });
 
     it('filterCustomers based on assetGroup selection- Valid Case --Using Promise', async () => {
         
