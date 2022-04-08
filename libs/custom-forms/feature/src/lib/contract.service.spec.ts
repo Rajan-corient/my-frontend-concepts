@@ -28,6 +28,7 @@ describe('MasterDataService', () => {
     it('getContracts method should not return contract when passed invalid input', () => {
         const contracts = service.getContracts('Customer-5', new Date(), new Date());
         expect(contracts.length).toBe(0);
+        expect(contracts).toEqual([])
     });
 
 });
