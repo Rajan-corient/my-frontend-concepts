@@ -54,7 +54,6 @@ describe('MarineDetailsComponent', () => {
     fixture = TestBed.createComponent(MarineDetailsComponent);
     component = fixture.componentInstance;
     debugElement = fixture.debugElement;
-    fixture.detectChanges();
     nominationService = TestBed.inject(NominationService);
   });
 
