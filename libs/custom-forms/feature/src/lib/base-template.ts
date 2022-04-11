@@ -1,5 +1,5 @@
 export const base_template = `
-<div [formGroup]='formGroup' [ngClass]="[layout]" >
+<div [formGroup]='formGroup' [ngClass]="[layout]">
   <ng-container *ngFor="let ctrl of getControls(); let i=index">
    
     <div 
@@ -11,7 +11,7 @@ export const base_template = `
       
       <!-- *** HANDLE READONLY FORM SCENARIOS *** -->
         <ng-container *ngIf="isReadOnly">
-          <label >{{ctrl.e.type === 'Date' ?   (ctrl.value | date) : ctrl.value}}</label>
+          <label class="readonly-label">{{ctrl.e.type === 'Date' ?   (ctrl.value | date) : ctrl.value}}</label>
         </ng-container>
 
       <!-- HANDLES EDITABLE SCENARIO -->

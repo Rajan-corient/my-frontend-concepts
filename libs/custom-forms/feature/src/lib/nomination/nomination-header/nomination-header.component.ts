@@ -14,14 +14,14 @@ import { ControlType, SmartFormControl } from '../../types/basic-form-types';
   styleUrls: ['./nomination-header.component.scss'],
   providers:[
     {
-      provide:NG_VALUE_ACCESSOR,
-      useExisting:NominationHeaderComponent,
-      multi:true
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: NominationHeaderComponent,
+      multi: true
     }
   ]
 })
-export class NominationHeaderComponent extends FormGeneratorComponent implements OnInit,OnChanges,OnDestroy {
 
+export class NominationHeaderComponent extends FormGeneratorComponent implements OnInit,OnChanges,OnDestroy {
 
   @Input()
   set vessel(value:string) {
@@ -95,6 +95,27 @@ export class NominationHeaderComponent extends FormGeneratorComponent implements
       .subscribe((data) => {
         console.log('changed', data);
         this.nominationService.filterContracts(...data);
+      });
+
+      // resetting value of customer control based on assetGroup value
+      this.formGroup?.['controls']?.['assetGroup'].valueChanges
+      .subscribe((data) => {
+        console.log("Ressetting Customer Value")
+        this.formGroup.controls?.['customer'].reset();
+      });
+
+      // resetting value of contract control based on customer value
+      this.formGroup?.['controls']?.['customer'].valueChanges
+      .subscribe((data) => {
+        console.log("Ressetting Contract Value")
+        this.formGroup.controls?.['contract'].reset();
+      });
+
+      // resetting value of type control based on contract value
+      this.formGroup?.['controls']?.['contract'].valueChanges
+      .subscribe((data) => {
+        console.log("Ressetting Type Value")
+        this.formGroup.controls?.['type'].reset();
       });
 
   }
