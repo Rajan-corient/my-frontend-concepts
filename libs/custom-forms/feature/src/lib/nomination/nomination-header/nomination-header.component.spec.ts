@@ -137,7 +137,7 @@ describe('NominationHeaderComponent', () => {
   });
 
   it('createForm method should create formGroup and set default control values to null', () => {
-    const groupValue = {
+    const formGroupValue = {
       assetGroup: null,
       customer: null,
       startDate: null,
@@ -151,7 +151,7 @@ describe('NominationHeaderComponent', () => {
     // calling detectChanges in beforeEach block
     const formGroup = component.formGroup;
     expect(formGroup).toBeDefined();
-    expect(formGroup.value).toEqual(groupValue);
+    expect(formGroup.value).toEqual(formGroupValue);
   });
 
   it('should count formGroup controls', () => {
