@@ -161,6 +161,14 @@ describe('NominationHeaderComponent', () => {
     expect(controlCount).toBe(7);
   });
 
+  it('setter for vessel should set the value of vessel control', () => {
+    const formGroup = component.formGroup;
+    expect(formGroup?.['controls']?.['vessel'].value).toBeNull();
+    component.vessel = 'vessel-1';
+    expect(formGroup?.['controls']?.['vessel'].value).toBe('vessel-1');
+    
+  });
+
   it('when setting the value of the assetgroup via setValue and it should update customer options and reset the customer value to null', (done) => {
 
     // setting assetGroup value using setValue method
