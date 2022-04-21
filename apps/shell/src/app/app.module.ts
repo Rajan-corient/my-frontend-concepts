@@ -17,23 +17,27 @@ import { RouterModule } from '@angular/router';
         {
           path: 'login',
           loadChildren: () =>
-            import('login/Module').then((m) => m.RemoteEntryModule)
+            import('login/Module').then((m) => m.RemoteEntryModule),
         },
         {
           path: 'custom-forms',
           loadChildren: () =>
-            import('custom-forms/Module').then((m) => m.RemoteEntryModule)
+            import('custom-forms/Module').then((m) => m.RemoteEntryModule),
         },
         {
           path: 'recursive-component',
           loadChildren: () =>
-            import('recursive-component-app/Module').then((m) => m.RemoteEntryModule)
+            import('recursive-component-app/Module').then(
+              (m) => m.RemoteEntryModule
+            ),
         },
-        // {
-        //   path: 'recursive-component',
-        //   loadChildren: () =>
-        //     import('css-grid/Module').then((m) => m.RemoteEntryModule),
-        // },
+        {
+          path: 'dependency-injection',
+          loadChildren: () =>
+            import('dependency-injection/Module').then(
+              (m) => m.RemoteEntryModule
+            ),
+        },
         // {
         //   path: 'custom-forms',
         //   loadChildren: () =>

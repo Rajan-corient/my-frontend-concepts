@@ -22,14 +22,13 @@ sharedMappings.register(
   tsConfigPath,
   [
     /* mapped paths to share */
-    '@my-frontend-concepts/shared/data-access/user',
   ],
   workspaceRootPath
 );
 
 module.exports = {
   output: {
-    uniqueName: 'shell',
+    uniqueName: 'dependency-injection',
     publicPath: 'auto',
   },
   optimization: {
@@ -45,12 +44,11 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      remotes: {
-        login: 'http://localhost:4201/remoteEntry.js',
-        'custom-forms': 'http://localhost:4202/remoteEntry.js',
-        'recursive-component-app': 'http://localhost:4203/remoteEntry.js',
-        'dependency-injection': 'http://localhost:4204/remoteEntry.js',
-        'dependency-injection': 'http://localhost:4204/remoteEntry.js',
+      name: 'dependency-injection',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './Module':
+          'apps/dependency-injection/src/app/remote-entry/entry.module.ts',
       },
       shared: share({
         '@angular/core': {

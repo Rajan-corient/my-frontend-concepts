@@ -1,0 +1,26 @@
+{
+  "projectType": "library",
+  "root": "libs/dependency-injection/feature",
+  "sourceRoot": "libs/dependency-injection/feature/src",
+  "prefix": "my-frontend-concepts",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/dependency-injection/feature"],
+      "options": {
+        "jestConfig": "libs/dependency-injection/feature/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/dependency-injection/feature/src/**/*.ts",
+          "libs/dependency-injection/feature/src/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

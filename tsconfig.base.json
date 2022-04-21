@@ -18,6 +18,9 @@
       "@my-frontend-concepts/custom-forms/feature": [
         "libs/custom-forms/feature/src/index.ts"
       ],
+      "@my-frontend-concepts/dependency-injection/feature": [
+        "libs/dependency-injection/feature/src/index.ts"
+      ],
       "@my-frontend-concepts/login/data-access": [
         "libs/login/data-access/src/index.ts"
       ],
