@@ -24,6 +24,12 @@
       "@my-frontend-concepts/login/feature": [
         "libs/login/feature/src/index.ts"
       ],
+      "@my-frontend-concepts/recursive-component-app/data-access": [
+        "libs/recursive-component-app/data-access/src/index.ts"
+      ],
+      "@my-frontend-concepts/recursive-component-app/feature": [
+        "libs/recursive-component-app/feature/src/index.ts"
+      ],
       "@my-frontend-concepts/shared/data-access/user": [
         "libs/shared/data-access/user/src/index.ts"
       ]

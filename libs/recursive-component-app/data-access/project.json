@@ -1,0 +1,23 @@
+{
+  "root": "libs/recursive-component-app/data-access",
+  "sourceRoot": "libs/recursive-component-app/data-access/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["libs/recursive-component-app/data-access/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/recursive-component-app/data-access"],
+      "options": {
+        "jestConfig": "libs/recursive-component-app/data-access/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

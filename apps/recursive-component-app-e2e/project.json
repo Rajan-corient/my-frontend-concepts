@@ -1,0 +1,28 @@
+{
+  "root": "apps/recursive-component-app-e2e",
+  "sourceRoot": "apps/recursive-component-app-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "@nrwl/cypress:cypress",
+      "options": {
+        "cypressConfig": "apps/recursive-component-app-e2e/cypress.json",
+        "devServerTarget": "recursive-component-app:serve:development"
+      },
+      "configurations": {
+        "production": {
+          "devServerTarget": "recursive-component-app:serve:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/recursive-component-app-e2e/**/*.{js,ts}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["recursive-component-app"]
+}

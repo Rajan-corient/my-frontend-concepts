@@ -22,14 +22,13 @@ sharedMappings.register(
   tsConfigPath,
   [
     /* mapped paths to share */
-    '@my-frontend-concepts/shared/data-access/user',
   ],
   workspaceRootPath
 );
 
 module.exports = {
   output: {
-    uniqueName: 'shell',
+    uniqueName: 'recursive-component-app',
     publicPath: 'auto',
   },
   optimization: {
@@ -45,10 +44,11 @@ module.exports = {
   },
   plugins: [
     new ModuleFederationPlugin({
-      remotes: {
-        login: 'http://localhost:4201/remoteEntry.js',
-        'custom-forms': 'http://localhost:4202/remoteEntry.js',
-        'recursive-component-app': 'http://localhost:4203/remoteEntry.js',
+      name: 'recursive-component-app',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './Module':
+          'apps/recursive-component-app/src/app/remote-entry/entry.module.ts',
       },
       shared: share({
         '@angular/core': {

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { NxWelcomeComponent } from './nx-welcome.component';
@@ -17,15 +17,20 @@ import { RouterModule } from '@angular/router';
         {
           path: 'login',
           loadChildren: () =>
-            import('login/Module').then((m) => m.RemoteEntryModule),
+            import('login/Module').then((m) => m.RemoteEntryModule)
         },
         {
           path: 'custom-forms',
           loadChildren: () =>
-            import('custom-forms/Module').then((m) => m.RemoteEntryModule),
+            import('custom-forms/Module').then((m) => m.RemoteEntryModule)
+        },
+        {
+          path: 'recursive-component',
+          loadChildren: () =>
+            import('recursive-component-app/Module').then((m) => m.RemoteEntryModule)
         },
         // {
-        //   path: 'css-grid',
+        //   path: 'recursive-component',
         //   loadChildren: () =>
         //     import('css-grid/Module').then((m) => m.RemoteEntryModule),
         // },
