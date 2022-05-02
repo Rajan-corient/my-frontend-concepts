@@ -79,13 +79,14 @@ describe('NominationService', () => {
     });
 
     it('vessels$ getter should return vessels', (done) => {
-        jest.spyOn(masterDataService, 'getVessels').mockReturnValue(mockedMasterData.vessels);
+        const spy = jest.spyOn(masterDataService, 'getVessels').mockReturnValue(mockedMasterData.vessels);
         service.vessels$.subscribe((data: string[]) => {
             console.log('Vessels', data)
             try {
                 expect(data.length).toBe(2)
                 expect(data).toEqual(['Vessel-1', 'Vessel-2']);
-                expect(masterDataService.getVessels).toHaveBeenCalledTimes(1);
+                expect(spy).toHaveBeenCalledTimes(1);
+                // expect(masterDataService.getVessels).toHaveBeenCalledTimes(1);
                 done();
             } catch (error) {
                 done(error);
