@@ -46,10 +46,9 @@ module.exports = {
   plugins: [
     new ModuleFederationPlugin({
       remotes: {
-        login: 'http://localhost:4201/remoteEntry.js',
+        'login': 'http://localhost:4201/remoteEntry.js',
         'custom-forms': 'http://localhost:4202/remoteEntry.js',
         'recursive-component-app': 'http://localhost:4203/remoteEntry.js',
-        'dependency-injection': 'http://localhost:4204/remoteEntry.js',
         'dependency-injection': 'http://localhost:4204/remoteEntry.js',
       },
       shared: share({
