@@ -1,9 +1,11 @@
 <div *ngFor="let comment of comments">
-  <ul>
+  <ul style="list-style:none;">
     <li>
-        {{ comment.text }}
-        <my-frontend-concepts-comment *ngIf="comment.children" [comments]="comment.children">
-        </my-frontend-concepts-comment>
+        <details>
+          <summary>{{ comment.text }}</summary>
+          <my-frontend-concepts-comment *ngIf="comment.children" [comments]="comment.children">
+          </my-frontend-concepts-comment>
+        </details>
     </li>
   </ul>
 </div>

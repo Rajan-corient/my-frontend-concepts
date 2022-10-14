@@ -23,15 +23,27 @@ export const CommentSchema: Comment[] = [
             text: "comment 1.2.1"
           },
           {
-            text: "comment 1.2.2"
-          }
+            text: "comment 1.2.2",
+            children: [
+              {
+                text: "comment 1.2.2.1"
+              }
+            ]
+          } 
         ]
       }
     ]
   },
   {
     text: "comment 2",
-    children: []
+    children: [
+      {
+        text: "comment 2.1"
+      },
+      {
+        text: "comment 2.2"
+      }
+    ]
   },
   {
     text: "comment 3",
